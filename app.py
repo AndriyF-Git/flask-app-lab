@@ -2,6 +2,7 @@ from flask import Flask, request, redirect, url_for
 from werkzeug.utils import redirect
 
 app = Flask(__name__)
+app.config.from_pyfile("config.py")
 
 
 @app.route('/')  # URL '/' to be handled by main() route handler
