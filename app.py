@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, url_for
+from flask import Flask, request, redirect, url_for, render_template
 from werkzeug.utils import redirect
 
 app = Flask(__name__)
@@ -28,6 +28,11 @@ def admin():
    to_url = url_for("greetings", name="Administrator", _external=True)            #"/hi/admin"
    print(to_url)
    return redirect(to_url)
+
+@app.route('/resume')
+def resume():
+    return render_template('resume.html', title="Резюме")
+
 
 if __name__ == "__main__":
     app.run()  # Launch built-in web server and run this Flask webapp, debug=True

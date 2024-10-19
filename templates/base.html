@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Ваш сайт{% endblock %}</title>
+  <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}"> -->
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="#about">Про себе</a></li>
+        <li><a href="#education">Освіта</a></li>
+        <li><a href="#skills">Навички</a></li>
+        <li><a href="#experience">Досвід роботи</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>
+    <p>© 2024 Ваше ім'я</p>
+  </footer>
+</body>
+</html>
