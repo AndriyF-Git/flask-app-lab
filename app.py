@@ -7,7 +7,7 @@ app.config.from_pyfile("config.py")
 
 @app.route('/')  # URL '/' to be handled by main() route handler
 def main():
-    return 'Hello, world!'
+    return redirect(url_for('resume'))
 
 
 @app.route('/homepage')
