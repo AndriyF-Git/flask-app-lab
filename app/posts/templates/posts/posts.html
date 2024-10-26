@@ -9,8 +9,7 @@
 <ul>
     {% for post in posts%}
         <li> {{post["id"]}} -  
-            <a href="{{post['id']}}">{{post["title"]}}</a>
-            <!-- поміняти на  url_for -->
+            <a href="{{ url_for('posts.detail_post', id=post.get('id')) }}">{{post["title"]}}</a>
         </li>
     {% endfor %}
 </ul>
