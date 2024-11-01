@@ -28,3 +28,7 @@ def home():
     agent = request.user_agent
 
     return render_template("home.html", agent=agent)
+
+@user_bp.route('/login')
+def login():
+    return render_template("login.html")
