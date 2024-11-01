@@ -1,5 +1,14 @@
 from . import user_bp
-from flask import request, redirect, url_for, render_template, abort
+from flask import request, redirect, url_for, render_template, session, flash
+
+credentials = {
+    "user1": "password123",
+    "user2": "mySecurePassword",
+    "admin": "adminPass",
+    "guest": "guest1234",
+    "testUser": "testPass456"
+}
+
 
 @user_bp.route('/')
 def main():
@@ -29,6 +38,30 @@ def home():
 
     return render_template("home.html", agent=agent)
 
-@user_bp.route('/login')
+@user_bp.route('/login', methods=['GET', 'POST'])
 def login():
+    if request.method == 'POST':
+        username = request.form["login"]
+        password = request.form['password']
+        # додати пароль в форму і виправити цей код, зробити функцію автентифікації
+        if username in credentials:
+            if credentials[username] == password:
+                session['username'] = username
+                flash("Success: session added successfully.", "success")
+                return redirect(url_for('users.profile'))
+
     return render_template("login.html")
+
+@user_bp.route('/profile')
+def profile():
+    if "username" in session:
+        username_value = session["username"]
+        return render_template("profile.html", username=username_value)
+    flash("Invalid: Session.", "danger")
+    return redirect(url_for("user_name.login"))
+
+
+@user_bp.route('/logout')
+def logout():
+    session.pop('username', None)
+    return redirect(url_for('users.login'))
