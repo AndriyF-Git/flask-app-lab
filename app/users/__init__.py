@@ -1,9 +1,9 @@
 from flask import Blueprint
 
 user_bp = Blueprint("users",
-               __name__, 
-               template_folder="templates/users",
-               #url_prefix="/users2"
-               )
+                    __name__,
+                    url_prefix="/user",
+                    template_folder="templates/users",
+                    )
 
 from . import views
