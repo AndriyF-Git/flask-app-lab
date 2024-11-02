@@ -1,8 +1,27 @@
 /* styles.css */
+html, body {
+    height: 100%;
+    margin: 0;
+}
 
 body {
+    display: flex;
+    flex-direction: column;
     font-family: 'Arial', sans-serif;
-  }
+}
+
+.container {
+    flex: 1; /* Займає весь доступний простір */
+}
+
+footer {
+    background-color: #333; /* Змінюйте за потреби */
+    text-align: center;
+    padding: 1rem 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
   
   h2 {
     color: #007bff;
@@ -20,9 +39,5 @@ body {
     color: #ccc;
   }
   
-  footer {
-    background-color: #333;
-    color: white;
-    padding: 20px 0;
-  }
+
   
