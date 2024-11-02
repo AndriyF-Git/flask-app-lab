@@ -3,6 +3,7 @@ from flask import request, redirect, url_for, render_template, session, flash
 from auth import authenticate_user
 
 
+
 @user_bp.route('/')
 def main():
     return render_template("base.html")
@@ -30,6 +31,7 @@ def home():
     agent = request.user_agent
 
     return render_template("home.html", agent=agent)
+
 
 @user_bp.route('/login', methods=['GET', 'POST'])
 def login():
