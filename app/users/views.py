@@ -1,7 +1,13 @@
 from . import user_bp
 from flask import request, redirect, url_for, render_template, session, flash
-from auth import authenticate_user
 
+credentials = {
+    "user1": "password123",
+    "user2": "mySecurePassword",
+    "admin": "adminPass",
+    "guest": "guest1234",
+    "testUser": "testPass456"
+}
 
 
 @user_bp.route('/')
@@ -32,19 +38,17 @@ def home():
 
     return render_template("home.html", agent=agent)
 
-
 @user_bp.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        username = request.form.get("login")
-        password = request.form.get("password")
-
-        if authenticate_user(username, password):
-            session['username'] = username
-            flash("Success: You have logged in successfully.", "success")
-            return redirect(url_for('users.profile'))
-        else:
-            flash("Error: Invalid username or password.", "danger")
+        username = request.form["login"]
+        password = request.form['password']
+        # додати пароль в форму і виправити цей код, зробити функцію автентифікації
+        if username in credentials:
+            if credentials[username] == password:
+                session['username'] = username
+                flash("Success: session added successfully.", "success")
+                return redirect(url_for('users.profile'))
 
     return render_template("login.html")
 

@@ -3,10 +3,9 @@
 {% block title %}Greeting Page{% endblock %}
 
 {% block content %}
-{% include "flash.html" %}
 
 <h1>Hi, {{ username }}</h1>
 
-<a href="{{url_for('users.logout')}}" class="btn btn-secondary">logout</a>
+<a href="{{url_for('users.logout')}}">logout</a>
 
 {% endblock %}
