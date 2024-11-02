@@ -13,6 +13,20 @@
             <h1>Flask Application</h1>
         </div>
     </header>
+
+    {% with msg = get_flashed_messages(with_categories=True) %}
+    <!-- Categories: success (green), info (blue), warning (yellow), danger (red) -->
+    {% if msg %}
+        {% for category, message in msg %}
+            <div class="alert alert-{{ category }} alert-dismissible" role="alert">
+                <strong>{{ message }}</strong>
+                <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
     
     <div class="container">
         {% block content %}
