@@ -16,5 +16,11 @@ def home():
 def show_resume():
     return render_template("resume.html")
 
+# Обробник помилки 404
+@app.errorhandler(404)
+def page_not_found(error):
+    # Відображаємо шаблон 404.html і повертаємо статусний код 404
+    return render_template('404.html'), 404
+
 
 

@@ -3,7 +3,8 @@ credentials = {
     "user2": "mySecurePassword",
     "admin": "adminPass",
     "guest": "guest1234",
-    "testUser": "testPass456"
+    "testUser": "testPass456",
+    "123": "123"
 }
 def authenticate_user(username, password):
     """Перевірка автентифікації користувача."""

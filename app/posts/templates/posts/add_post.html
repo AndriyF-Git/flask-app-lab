@@ -9,6 +9,14 @@
 
     {{ render_field(form.title) }}
     {{ render_field(form.content) }}
-    {{ form.submit(class="btn btn-primary") }}
+    <div class="form-group form-check">
+        {{ form.is_active(class="form-check-input") }}
+        {{ form.is_active.label(class="form-check-label") }}
+    </div>
+    {{ render_field(form.publish_date) }}
+    {{ render_field(form.category) }}
+    <div class="form-group">
+        {{ form.submit(class="btn btn-primary") }}
+    </div>
 </form>
 {% endblock %}
