@@ -13,7 +13,7 @@ CATEGORIES = [('tech', 'Tech'), ('science', 'Science'), ('lifestyle', 'Lifestyle
 
 class PostForm(FlaskForm):
     title = StringField("Title", validators=[DataRequired(message="Обов'язкове поле"), Length(min=3, max=100)])
-    content = TextAreaField("Content")
+    content = TextAreaField("Content", render_kw={"rows": 5,  "cols": 40}, validators=[DataRequired()])
     is_active = BooleanField("Active Post")
     publish_date = DateField("Publish Date",
                              format='%Y-%m-%d', validators=[DataRequired()])
