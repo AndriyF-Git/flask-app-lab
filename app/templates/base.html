@@ -6,6 +6,8 @@
     <title>{% block title %} {% endblock %} - FlaskApp</title>
     <link rel="stylesheet" href="{{url_for('static', filename='css/bootstrap.css')}}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+{% block style %} {% endblock %}
+
 {% include "color_scheme.html" %}
 </head>
 <body>
