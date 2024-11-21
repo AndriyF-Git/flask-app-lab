@@ -1,5 +1,6 @@
 from . import post_bp
 import os, json
+from app import db
 
 def get_posts_file_path():
     """Повертає шлях до файлу posts.json відносно кореня блюпринта."""

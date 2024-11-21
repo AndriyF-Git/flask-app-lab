@@ -3,13 +3,14 @@ from flask import render_template, abort, flash, redirect, url_for, session
 from .forms import PostForm
 from .functions import read_posts, write_posts, get_new_id
 from .models import Post
+from app import db
 
 
 
 
 @post_bp.route('/')
 def get_posts():
-    posts = read_posts()
+    posts = db.session.query(Post).order_by(Post.posted.desc()).all()
     return render_template("posts.html", posts=posts)
 
 
