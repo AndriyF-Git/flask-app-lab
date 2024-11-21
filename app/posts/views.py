@@ -2,6 +2,7 @@ from . import post_bp
 from flask import render_template, abort, flash, redirect, url_for, session
 from .forms import PostForm
 from .functions import read_posts, write_posts, get_new_id
+from .models import Post
 
 
 
