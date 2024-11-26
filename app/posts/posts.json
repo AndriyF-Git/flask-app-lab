@@ -34,5 +34,14 @@
         "is_active": true,
         "publication_date": "2024-11-21",
         "author": "123"
+    },
+    {
+        "id": 5,
+        "title": "45446",
+        "content": "\u043a\u043d\u0442\u0435\u043d\u0435\u0440\u0442",
+        "category": "tech",
+        "is_active": true,
+        "publication_date": "2024-11-25",
+        "author": "Unknown"
     }
 ]
