@@ -1,7 +1,6 @@
 from . import post_bp
 from flask import render_template, abort, flash, redirect, url_for, session
 from .forms import PostForm
-from .functions import read_posts, write_posts, get_new_id
 from .models import Post
 from app import db
 
@@ -10,30 +9,21 @@ from app import db
 
 @post_bp.route('/')
 def get_posts():
-    posts = db.session.query(Post).order_by(Post.posted.desc()).all()
+    stmt = db.select(Post).order_by(Post.posted.desc())
+    posts =  db.session.scalars(stmt).all()
     return render_template("posts.html", posts=posts)
 
 
 @post_bp.route('/<int:id>')
 def detail_post(id):
-    #posts = read_posts()
-    
-    #post = next((post for post in posts if post["id"] == id), None)
-    post = db.session.get(Post, id)
-    if post is None:
-        abort(404)
+    post = db.get_or_404(Post, id)
 
     return render_template("detail_post.html", post=post)
 
 @post_bp.route('/delete_post/<int:id>', methods=['POST'])
 def delete_post(id):
     # Отримуємо пост із бази даних
-    post = db.session.get(Post, id)
-
-    # Якщо пост не знайдено, повертаємо 404
-    if not post:
-        abort(404)
-
+    post = db.get_or_404(Post, id)
     # Видаляємо пост із бази даних
     db.session.delete(post)
     db.session.commit()
@@ -46,15 +36,10 @@ def delete_post(id):
 @post_bp.route('/edit_post/<int:id>', methods=['GET', 'POST'])
 def edit_post(id):
     # Отримуємо пост із бази даних
-    post = db.session.get(Post, id)
-
-    # Якщо пост не знайдено, повертаємо 404
-    if not post:
-        abort(404)
-
+    post = db.get_or_404(Post, id)
     # Ініціалізуємо форму з даними поста
     form = PostForm(obj=post)
-
+    form.publish_date.data = post.posted
     if form.validate_on_submit():
         # Оновлюємо дані поста з форми
         post.title = form.title.data
@@ -67,7 +52,7 @@ def edit_post(id):
         db.session.commit()
 
         flash('Post updated successfully!', 'success')
-        return redirect(url_for('posts.get_posts'))  # Повертаємося до списку постів
+        return redirect(url_for('.get_posts'))  # Повертаємося до списку постів
 
     return render_template('edit_post.html', form=form, post=post)
 

@@ -23,7 +23,7 @@
                         <p class="card-text">{{ post.content | truncate(7) }}</p> <!-- Скорочений контент -->
                         <p class="card-text"><small class="text-muted">Author: {{ post.author }}</small></p>
                         <p class="card-text"><small class="text-muted">Category: {{ post.category }}</small></p>
-                        <p>Published on: {{ post.posted.strftime('%Y-%m-%d') }}</p>
+                        <p>Published on: {{ post.posted.strftime('%Y-%m-%d %H:%M') }}</p>
                         <!-- Кнопка для редагування -->
                         <a href="{{ url_for('posts.edit_post', id=post.id) }}" class="btn btn-warning">Edit Post</a>
                         <form action="{{ url_for('posts.delete_post', id=post.id) }}" method="post" style="display:inline;">
