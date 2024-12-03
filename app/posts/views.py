@@ -2,6 +2,7 @@ from . import post_bp
 from flask import render_template, abort, flash, redirect, url_for, session
 from .forms import PostForm
 from .models import Post
+from app.users.models import User
 from app import db
 
 
@@ -59,6 +60,11 @@ def edit_post(id):
 @post_bp.route('/add_post', methods=['GET', 'POST'])
 def add_post():
     form = PostForm()
+
+    authors = User.query.all()
+    print(authors)
+    form.author_id.choices = [(author.id, author.username) for author in authors]
+    print(form.author_id.choices)
     if form.validate_on_submit():
         # Створюємо новий об'єкт Post
         new_post = Post(
@@ -67,7 +73,8 @@ def add_post():
             category=form.category.data,
             is_active=form.is_active.data,
             posted=form.publish_date.data,  # Збереження дати з форми
-            author=session.get('username', 'Unknown')  # Автор з session
+            user_id=form.author_id.data  # Прив'язка автор
+            #author=session.get('username', 'Unknown')  # Автор з session
         )
 
         # Додаємо об'єкт у базу даних
