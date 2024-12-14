@@ -1,7 +1,7 @@
 from . import post_bp
 from flask import render_template, abort, flash, redirect, url_for, session
 from .forms import PostForm
-from .models import Post
+from .models import Post, Tag
 from app.users.models import User
 from app import db
 
@@ -60,11 +60,12 @@ def edit_post(id):
 @post_bp.route('/add_post', methods=['GET', 'POST'])
 def add_post():
     form = PostForm()
-
+    
+    # Підвантаження тегів з БД
+    form.tags.choices = [(tag.id, tag.name) for tag in Tag.query.all()]
     authors = User.query.all()
-    print(authors)
     form.author_id.choices = [(author.id, author.username) for author in authors]
-    print(form.author_id.choices)
+
     if form.validate_on_submit():
         # Створюємо новий об'єкт Post
         new_post = Post(
@@ -73,11 +74,14 @@ def add_post():
             category=form.category.data,
             is_active=form.is_active.data,
             posted=form.publish_date.data,  # Збереження дати з форми
-            user_id=form.author_id.data  # Прив'язка автор
-            #author=session.get('username', 'Unknown')  # Автор з session
+            user_id=form.author_id.data  # Прив'язка автора
         )
+        
+        # Прив'язка тегів до поста
+        selected_tags = [Tag.query.get(tag_id) for tag_id in form.tags.data]  # Отримуємо теги за їх ID
+        new_post.tags = selected_tags  # Прив'язуємо теги до поста
 
-        # Додаємо об'єкт у базу даних
+        # Додаємо пост у сесію
         db.session.add(new_post)
         db.session.commit()  # Фіксуємо зміни в базі
 
